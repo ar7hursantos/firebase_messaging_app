@@ -1,0 +1,5 @@
+lib/app/modules/app_pushs/app_pushs_module.dart
+lib/app/modules/app_pushs/app_pushs_page.dart
+test/app/modules/app_pushs/app_pushs_page_test.dart
+lib/app/modules/app_pushs/app_pushs_controller.dart
+test/app/modules/app_pushs/app_pushs_controller_test.dart
