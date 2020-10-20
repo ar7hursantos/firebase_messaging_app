@@ -10,8 +10,8 @@ class AppPushsModule extends ChildModule {
       ];
 
   @override
-  List<Router> get routers => [
-        Router(Modular.initialRoute, child: (_, args) => AppPushsPage()),
+  List<ModularRouter> get routers => [
+        ModularRouter(Modular.initialRoute, child: (_, args) => AppPushsPage()),
       ];
 
   static Inject get to => Inject<AppPushsModule>.of();
