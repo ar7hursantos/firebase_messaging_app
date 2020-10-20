@@ -27,6 +27,7 @@ dependencies:
   firebase_analytics: ^6.0.2
   firebase_core: ^0.5.0+1
   firebase_messaging: ^7.0.3
+  flutter_local_notifications: ^2.0.1+1
   flutter_mobx: ^1.1.0+2
   flutter_modular: ^2.0.1
   get: ^3.13.2
