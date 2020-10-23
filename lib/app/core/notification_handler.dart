@@ -55,16 +55,16 @@ class NotificationHandler {
     _firebaseMessaging.configure(
       onMessage: (message) async {
         print("onMessage: $message");
-        _processMessage(message);
+        _processMessage(message, true);
       },
       onBackgroundMessage: myBackgroundMessageHandler,
       onResume: (message) async {
         print("onResume: $message");
-        _processMessage(message);
+        _processMessage(message, false);
       },
       onLaunch: (message) async {
         print("onLaunch: $message");
-        _processMessage(message);
+        _processMessage(message, false);
       },
     );
 
@@ -80,31 +80,31 @@ class NotificationHandler {
     print(await _firebaseMessaging.getToken());
   }
 
-  void _processMessage(message) {
-    _flutterLocalNotificationShow(message);
-  }
-
-  Future<void> _flutterLocalNotificationShow(message) async {
+  Future<void> _processMessage(message, bool isLocalNotification) async {
     String payload;
+
     if (Platform.isIOS) {
       payload = message['payload'];
     } else {
       payload = message['data']['payload'];
     }
-    await flutterLocalNotificationsPlugin.show(
-        0,
-        message['notification']['title'],
-        message['notification']['body'],
-        platformChannelSpecifics,
-        payload: payload);
+    if (isLocalNotification) {
+      await _showLocalNotification(message['notification']['title'],
+          message['notification']['body'], payload);
+    }
 
     var parsedJson = json.decode(payload);
     var payloadMessage = parsedJson['message'];
 
-    //Get.snackbar(type, payload);
     Get.offAllNamed('/home', arguments: {
       'message': payloadMessage,
     });
+  }
+
+  Future<void> _showLocalNotification(
+      String title, String body, String payload) async {
+    await flutterLocalNotificationsPlugin
+        .show(0, title, body, platformChannelSpecifics, payload: payload);
   }
 
   Future onDidReceiveLocalNotification(
