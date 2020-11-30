@@ -20,9 +20,38 @@ class _AppPushsPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Container(
-              child: Text('OLÁ!!!', style: TextStyle(color: Colors.black)))),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('OLÁ!!!', style: TextStyle(color: Colors.black)),
+            SizedBox(
+              height: 20,
+            ),
+            MaterialButton(
+              color: Colors.blueAccent,
+              child: Text('Subscribe to FlutterDevs'),
+              onPressed: () => NotificationHandler().subscribeToTopic('devs'),
+            ),
+            MaterialButton(
+              color: Colors.redAccent,
+              child: Text('Unsubscribe to FlutterDevs'),
+              onPressed: () =>
+                  NotificationHandler().unsubscribeFromTopic('devs'),
+            ),
+            SizedBox(
+              height: 80,
+            ),
+            MaterialButton(
+                color: Colors.blueAccent,
+                child: Text('Send Message'),
+                onPressed: () => NotificationHandler().sendMessageToTopic()),
+          ],
+        ),
+      ),
     );
   }
 }
